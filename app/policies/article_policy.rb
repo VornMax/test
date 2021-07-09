@@ -1,7 +1,8 @@
 class ArticlePolicy < ApplicationPolicy
 
   def index?
-    user.ban?
+    #byebug
+    user.jack?
   end
  
   def create?
@@ -21,6 +22,6 @@ class ArticlePolicy < ApplicationPolicy
   end
 
   def new?
-    user.vanya?
+    user.jack?
   end
 end

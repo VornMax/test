@@ -24,7 +24,7 @@ class User < ApplicationRecord
   end
 
   def jack?
-    email == "jack@gmail.com"
+    email == "maks@gmail.com"
   end
 
 end

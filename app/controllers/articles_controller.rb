@@ -1,13 +1,14 @@
 class ArticlesController < ApplicationController
-  before_action :authenticate_user!, except: :index
-  before_action :access_action, only: [:create, :update, :destroy]
+  before_action :authenticate_user!
+  #before_action :access_action
+  before_action :set_article, only: %i[show edit update destroy]
 
   def index
     @articles = Article.all
+
   end
 
   def show
-    @article = Article.find(params[:id])
   end
 
   def new
@@ -15,8 +16,6 @@ class ArticlesController < ApplicationController
   end
 
   def create
-    @article = Article.new(article_params)
-
     if @article.save
       redirect_to @article
     else
@@ -25,17 +24,20 @@ class ArticlesController < ApplicationController
   end
 
   def edit
-    @article = Article.find(params[:id])
   end
 
   def update
-    @article = Article.find(params[:id])
-
     if @article.update(article_params)
       redirect_to @article
     else
       render :edit, status: :unprocessable_entity
     end
+  end
+
+  def destroy
+    @article.destroy
+
+    redirect_to root_path
   end
 
   private
@@ -44,8 +46,11 @@ class ArticlesController < ApplicationController
     end
 
     def access_action
+      authorize Article
+    end
+
+    def set_article
       @article = Article.find(params[:id])
-      authorize @article
     end
 end
 
