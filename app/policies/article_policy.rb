@@ -1,27 +1,30 @@
 class ArticlePolicy < ApplicationPolicy
 
   def index?
-    #byebug
-    user.jack?
+    
   end
  
   def create?
-    user.jack?
   end
  
   def update?
-    user.vasya?
+    user.maks? && record.title.include?('has') || user.vasya_pupkin? && record.body.include?('new')
   end
  
   def destroy?
-    user.tanya?
+    user.maks? && record.title.include?('has') || user.vasya_pupkin? && record.body.include?('new')
   end
 
   def edit?
-    user.bil?
+    user.maks? && record.title.include?('has') || user.vasya_pupkin? && record.body.include?('new')
   end
 
   def new?
-    user.jack?
+  end
+
+  def show?
+    #byebug
+    #user.vasya_pupkin? and record.title.include? "new"
+    user.maks? && record.title.include?('has') || user.vasya_pupkin? && record.body.include?('new')
   end
 end
