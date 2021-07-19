@@ -1,6 +1,6 @@
 class ArticlesController < ApplicationController
   before_action :authenticate_user!
-  before_action :common_article_access, only: %i[index create new]
+  #before_action :common_article_access, only: %i[index create new]
   before_action :article_access, only: %i[show edit update destroy]
 
   def index
@@ -16,10 +16,12 @@ class ArticlesController < ApplicationController
 
   def create
     @article = Article.new(article_params)
+    @article.user = current_user
 
     if @article.save
       redirect_to @article
     else
+      byebug
       render :new, status: :unprocessable_entity
     end
   end
@@ -48,7 +50,7 @@ class ArticlesController < ApplicationController
 
     def article_access
       @article = Article.find(params[:id])
-      authorize @article
+      #authorize @article
     end
 
     def common_article_access

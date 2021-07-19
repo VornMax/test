@@ -1,6 +1,10 @@
 <h1><%= @article.title %></h1>
 
-<p><%= @article.body %></p>
+<p><%= @article.body %></p><br>
+
+<small>Created by: <%= @article.user.email %>,
+<%= time_ago_in_words(@article.created_at) %> ago,
+last updated: <%= time_ago_in_words(@article.updated_at) %> ago</small>
 
 <ul>
   <li><%= link_to "Edit", edit_article_path(@article) %></li>
