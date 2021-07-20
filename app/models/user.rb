@@ -3,6 +3,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :confirmable, :registerable,
          :recoverable, :rememberable, :validatable,
          :trackable, :timeoutable, :lockable, :omniauthable, omniauth_providers: [:facebook]
+
+  enum role: [:member, :moderator]
   
   has_many :articles
   
@@ -12,6 +14,15 @@ class User < ApplicationRecord
       user.password = Devise.friendly_token[0, 20]
     end
   end
+
+  # def moderator?
+  #   role == "moderator"
+  # end
+
+  # def member?
+  #   #byebug
+  #   role == "member"
+  # end
 
   # def maks?
   #   email == "maks@gmail.com"
