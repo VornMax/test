@@ -23,7 +23,7 @@ class ArticlePolicy < ApplicationPolicy
   end
  
   def update?
-    user.member? && record.user_id == user.id && record.status == "draft"
+    user.moderator? && record.status == "draft" || user.member? && record.user_id == user.id && record.status == "draft"
   end
  
   def destroy?
@@ -39,6 +39,6 @@ class ArticlePolicy < ApplicationPolicy
   end
 
   def show?
-    user.moderator? && record.status == "draft" || user.member? && record.status == "published" || user.member? && record.user_id == user.id && record.status == "draft"
+    user.moderator? || user.member? && record.status == "published" || user.member? && record.user_id == user.id && record.status == "draft"
   end
 end

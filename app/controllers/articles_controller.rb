@@ -4,7 +4,7 @@ class ArticlesController < ApplicationController
   before_action :article_access, only: %i[show edit update destroy]
 
   def index
-    @articles = policy_scope(Article)
+    @articles = policy_scope(Article.paginate page: params[:page], per_page: 30)
   end
 
   def show
