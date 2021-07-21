@@ -4,7 +4,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable,
          :trackable, :timeoutable, :lockable, :omniauthable, omniauth_providers: [:facebook]
 
-  enum role: [:member, :moderator]
+  enum role: [:member, :moderator, :admin]
   
   has_many :articles
   

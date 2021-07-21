@@ -11,13 +11,13 @@
 last updated: <%= time_ago_in_words(@article.updated_at) %> ago</small><br><br>
 
 <div style="text-align: center;">
-  <% if current_user.moderator? && @article.draft? %>
+  <% if current_user.moderator? && @article.draft? || current_user.admin? && @article.draft? %>
     <%= button_to 'PUBLISHE', {:action => "update", :id => @article.id}, :params => { :article => {:status => "published"}}, :method => :patch %>
   <% end %>
 </div>
 
 <ul>
-  <% if current_user.member? && @article.draft? %>
+  <% if current_user.member? && @article.draft? || current_user.admin? %>
     <li><%= link_to "Edit", edit_article_path(@article) %></li>
     <li><%= link_to "Destroy", article_path(@article),
                   method: :delete,
