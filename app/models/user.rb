@@ -14,21 +14,4 @@ class User < ApplicationRecord
       user.password = Devise.friendly_token[0, 20]
     end
   end
-
-  # def moderator?
-  #   role == "moderator"
-  # end
-
-  # def member?
-  #   #byebug
-  #   role == "member"
-  # end
-
-  # def maks?
-  #   email == "maks@gmail.com"
-  # end
-  
-  # def vasya_pupkin?
-  #   email == "vasya_pupkin@gmail.com"
-  # end
 end

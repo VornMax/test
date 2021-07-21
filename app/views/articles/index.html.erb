@@ -4,9 +4,14 @@
   <% @articles.each do |article| %>
     <li>
       <%= link_to article.title, article %>
-      <%= article.status %>
+
+      <% if current_user.moderator? && article.draft? || current_user.member? && article.draft? %>
+        <font color="red"><%= article.status %></font>
+      <% end %>
     </li>
   <% end %>
 </ul>
 
-<%= link_to "New Article", new_article_path %>
+<% if current_user.member? %>
+  <%= link_to "New Article", new_article_path %>
+<% end %>
