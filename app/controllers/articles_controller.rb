@@ -4,8 +4,30 @@ class ArticlesController < ApplicationController
   before_action :article_access, only: %i[show edit update destroy]
 
   def index
-    @articles = policy_scope(Article.paginate page: params[:page], per_page: 30)
+    @articles = Article.all
+  
+    if params[:title].present?
+      @articles = @articles.filter_by_title(params[:title])
+                                       
+    end
+
+    if params[:user].present?
+      @articles = @articles.filter_by_user(params[:user])
+    end
+
+    if params[:body].present?
+      @articles = @articles.filter_by_body(params[:body])
+                                       
+    end
+
+    if params[:status].present?
+      @articles = @articles.filter_by_status(params[:status])
+                                       
+    end
+
+    @articles = policy_scope(@articles).paginate page: params[:page], per_page: 30
   end
+
 
   def show
   end
@@ -45,7 +67,7 @@ class ArticlesController < ApplicationController
 
   private
     def article_params
-      params.require(:article).permit(:title, :body, :status)
+      params.require(:article).permit(:title, :body, :status, :user_id)
     end
 
     def article_access
