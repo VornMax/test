@@ -7,22 +7,23 @@ class ArticlesController < ApplicationController
     @articles = Article.all
   
     if params[:title].present?
-      @articles = @articles.filter_by_title(params[:title])
-                                       
+      @title = params[:title]
+      @articles = @articles.filter_by_title(@title)                                 
     end
 
     if params[:user].present?
-      @articles = @articles.filter_by_user(params[:user])
+      @user = params[:user]
+      @articles = @articles.filter_by_user(@user)
     end
 
     if params[:body].present?
-      @articles = @articles.filter_by_body(params[:body])
-                                       
+      @body = params[:body]
+      @articles = @articles.filter_by_body(@body)                             
     end
 
     if params[:status].present?
-      @articles = @articles.filter_by_status(params[:status])
-                                       
+      @status = params[:status]
+      @articles = @articles.filter_by_status(@status)                                
     end
 
     @articles = policy_scope(@articles).paginate page: params[:page], per_page: 30

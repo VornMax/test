@@ -2,22 +2,22 @@
 
 <% if current_user.admin? %>
   <div align="center" ><%= form_tag articles_path, :method => "get" do %>
-    <%= label_tag("what do you want to find?") %><br>
-    <%= text_field_tag :title %><br>
+    <%= label_tag "what do you want to find in title?" %><br>
+    <%= text_field_tag :title, @title %><br>
 
-    <%= label_tag("what user of articles do you want to find?") %><br>
-    <%= text_field_tag :user %><br>
+    <%= label_tag "what user of articles do you want to find?" %><br>
+    <%= text_field_tag :user, @user %><br>
 
-    <%= label_tag("what do you want to find? in body") %><br>
-    <%= text_field_tag :body %><br>
+    <%= label_tag "what do you want to find in body?" %><br>
+    <%= text_field_tag :body, @body %><br>
 
-    <%= check_box_tag :status, params[:status]='draft' %>
+    <%= check_box_tag :status, :draft %>
     <%= label_tag :status, "Draft" %><br>
 
-    <%= check_box_tag :status, params[:status]='published' %>
+    <%= check_box_tag :status, :published %>
     <%= label_tag :status, "Published" %><br>
 
-    <%= submit_tag("Search") %>
+    <%= submit_tag "Search", :name => nil %>
   <% end %></div>
 <% end %>
 
