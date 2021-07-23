@@ -11,10 +11,10 @@
     <%= label_tag "what do you want to find in body?" %><br>
     <%= text_field_tag :body, @body %><br>
 
-    <%= check_box_tag :status, :draft %>
+    <%= check_box_tag :status, :draft, @status=="draft" %>
     <%= label_tag :status, "Draft" %><br>
 
-    <%= check_box_tag :status, :published %>
+    <%= check_box_tag :status, :published, @status=="published" %>
     <%= label_tag :status, "Published" %><br>
 
     <%= submit_tag "Search", :name => nil %>

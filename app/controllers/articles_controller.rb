@@ -5,15 +5,15 @@ class ArticlesController < ApplicationController
 
   def index
     @articles = Article.all
-  
     if params[:title].present?
       @title = params[:title]
       @articles = @articles.filter_by_title(@title)                                 
     end
 
     if params[:user].present?
+      #byebug
       @user = params[:user]
-      @articles = @articles.filter_by_user(@user)
+      @articles = @articles.filter_by_user_email(@user)
     end
 
     if params[:body].present?
@@ -23,7 +23,7 @@ class ArticlesController < ApplicationController
 
     if params[:status].present?
       @status = params[:status]
-      @articles = @articles.filter_by_status(@status)                                
+      @articles = @articles.filter_by_status(@status)                            
     end
 
     @articles = policy_scope(@articles).paginate page: params[:page], per_page: 30
