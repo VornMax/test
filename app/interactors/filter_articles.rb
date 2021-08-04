@@ -3,7 +3,7 @@ class FilterArticles
 
   def call
     result = default_scope
-
+    
     result = result.filter_by_title params[:title] if params[:title].presence                              
     
     result = result.filter_by_user_email params[:user] if params[:user].presence

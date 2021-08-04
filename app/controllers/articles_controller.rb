@@ -4,9 +4,10 @@ class ArticlesController < ApplicationController
   before_action :article_access, only: %i[show edit update destroy]
 
   def index
-    #byebug
-    @article_params = article_params
-    @articles = policy_scope(FilterArticles.call(params: @article_params).result)
+    @article_params = article_filter_params
+    variable_for_filter
+    initial_scope = policy_scope(Article.all)
+    @articles = FilterArticles.call(scope: initial_scope, params: @article_params).result
   end
 
 
@@ -29,7 +30,6 @@ class ArticlesController < ApplicationController
   end
 
   def edit
-    #byebug
   end
 
   def update
@@ -47,8 +47,12 @@ class ArticlesController < ApplicationController
   end
 
   private
+    def article_filter_params
+      params.permit(:title, :body, :status, :user)
+    end
+
     def article_params
-      params.permit(:title, :body, :status, :user_id)
+      params.require(:article).permit(:title, :body, :status, :user)
     end
 
     def article_access
@@ -58,6 +62,13 @@ class ArticlesController < ApplicationController
 
     def common_article_access
       authorize Article
+    end
+
+    def variable_for_filter
+      @title = params[:title]
+      @user = params[:user]
+      @body = params[:body]
+      @status = params[:status]
     end
 end
 
