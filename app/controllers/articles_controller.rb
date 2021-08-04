@@ -1,11 +1,15 @@
 class ArticlesController < ApplicationController
   before_action :authenticate_user!
-  before_action :common_article_access, only: %i[index create new]
+  before_action :common_article_access, only: %i[create new]
   before_action :article_access, only: %i[show edit update destroy]
 
   def index
-    @articles = Article.all
+    @article_params = article_filter_params
+    variable_for_filter
+    initial_scope = policy_scope(Article.all)
+    @articles = FilterArticles.call(scope: initial_scope, params: @article_params).result
   end
+
 
   def show
   end
@@ -16,6 +20,7 @@ class ArticlesController < ApplicationController
 
   def create
     @article = Article.new(article_params)
+    @article.user = current_user
 
     if @article.save
       redirect_to @article
@@ -42,8 +47,12 @@ class ArticlesController < ApplicationController
   end
 
   private
+    def article_filter_params
+      params.permit(:title, :body, :status, :user)
+    end
+
     def article_params
-      params.require(:article).permit(:title, :body)
+      params.require(:article).permit(:title, :body, :status, :user)
     end
 
     def article_access
@@ -53,6 +62,13 @@ class ArticlesController < ApplicationController
 
     def common_article_access
       authorize Article
+    end
+
+    def variable_for_filter
+      @title = params[:title]
+      @user = params[:user]
+      @body = params[:body]
+      @status = params[:status]
     end
 end
 

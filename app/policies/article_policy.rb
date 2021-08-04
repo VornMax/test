@@ -1,29 +1,46 @@
 class ArticlePolicy < ApplicationPolicy
-  def index?
-    true
+  class Scope
+    def initialize(user, scope)
+      @user  = user
+      @scope = scope
+    end
+
+    def resolve
+      if user.admin?
+        scope.all
+      elsif  user.moderator?
+        scope.where(status: "draft")
+      elsif user.member?
+        scope.where(status: "draft", user_id: user).or(scope.where(status: "published"))
+      end
+    end
+
+    private
+
+    attr_reader :user, :scope
   end
- 
+
   def create?
-    user.maks?
+    user.member? || user.admin?
   end
  
   def update?
-    user.maks? && record.title.include?('has') 
+    user.admin? || user.moderator? && record.status == "draft" || user.member? && record.user_id == user.id && record.status == "draft"
   end
  
   def destroy?
-    user.maks? && record.title.include?('has') 
+    user.admin? || user.member? && record.user_id == user.id && record.status == "draft"
   end
 
   def edit?
-    user.vasya_pupkin? && record.body.include?('new')
+    user.admin? || user.member? && record.user_id == user.id && record.status == "draft"
   end
 
   def new?
-    user.maks?
+    user.admin? || user.member?
   end
 
   def show?
-    user.maks? && record.title.include?('has') || user.vasya_pupkin? && record.body.include?('new')
+    user.admin? || user.moderator? || user.member? && record.status == "published" || user.member? && record.user_id == user.id && record.status == "draft"
   end
 end

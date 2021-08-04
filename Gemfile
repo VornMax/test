@@ -27,6 +27,10 @@ gem "mailcatcher", "~> 0.2.4"
 gem "omniauth-facebook", "~> 8.0"
 gem "figaro", "~> 1.2"
 gem "omniauth-rails_csrf_protection", "~> 1.0"
+gem "faker", "~> 2.18"
+gem "will_paginate", "~> 3.3"
+gem "interactor", "~> 3.1"
+gem "interactor-rails", "~> 2.2"
 
 
 # Use Active Storage variant
@@ -61,5 +65,4 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
-
 

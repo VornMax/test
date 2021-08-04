@@ -14,7 +14,7 @@
     <div>
       <% if notice %> <p class="alert alert-success"><%= notice %></p> <% end %> <% if alert %> <p class="alert alert-danger"><%= alert %></p> <% end %>
       <% if user_signed_in? %>
-        Hello <%= current_user.email %>
+        Hello <font color="blue"><%= current_user.role %></font>, <%= current_user.email %>
         
         <%= link_to  "Sign out", destroy_user_session_path, method: :delete %>
       <% else %>
