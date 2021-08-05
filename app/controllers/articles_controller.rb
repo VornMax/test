@@ -52,7 +52,7 @@ class ArticlesController < ApplicationController
     end
 
     def article_params
-      params.require(:article).permit(:title, :body, :status, :user, :image)
+      params.require(:article).permit(:title, :body, :status, :user, :image, :image_cache, :remove_image)
     end
 
     def article_access

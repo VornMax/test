@@ -28,12 +28,15 @@
 <ul>
   <% @articles.each do |article| %>
     <li>
-      <%= link_to article.title, article %>
+    <%= link_to article.title, article %>
 
-      <% if current_user.admin? && article.draft? || current_user.moderator? && article.draft? || current_user.member? && article.draft? %>
-        <font color="red"><%= article.status %></font>
-      <% end %>
+    <% if current_user.admin? && article.draft? || current_user.moderator? && article.draft? || current_user.member? && article.draft? %>
+      <font color="red"><%= article.status %></font><br>
+    <% end %>
     </li>
+
+    <%= image_tag(article.image.small_thumb.url, alt: 'Image') if article.image? %>
+
   <% end %>
 </ul>
 

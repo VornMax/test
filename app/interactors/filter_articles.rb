@@ -12,7 +12,7 @@ class FilterArticles
 
     result = result.filter_by_status params[:status] if params[:status].presence                  
 
-    context.result = result.paginate page: params[:page], per_page: 30
+    context.result = result.paginate page: params[:page], per_page: 10
   end
 
   private
