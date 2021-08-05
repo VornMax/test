@@ -4,6 +4,8 @@
   <font color="red"><%= @article.status %></font><br>
 <% end %>
 
+<%= image_tag(@article.image.url, alt: 'Image') if @article.image? %>
+
 <p><%= @article.body %></p><br>
 
 <small>Created by: <%= @article.user.email %>,

@@ -31,6 +31,9 @@ gem "faker", "~> 2.18"
 gem "will_paginate", "~> 3.3"
 gem "interactor", "~> 3.1"
 gem "interactor-rails", "~> 2.2"
+gem "carrierwave", "~> 2.2"
+gem "mini_magick", "~> 4.11"
+gem "file_validators", "~> 3.0"
 
 
 # Use Active Storage variant

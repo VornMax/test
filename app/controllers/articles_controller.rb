@@ -48,11 +48,11 @@ class ArticlesController < ApplicationController
 
   private
     def article_filter_params
-      params.permit(:title, :body, :status, :user)
+      params.permit(:title, :body, :status, :user, :page)
     end
 
     def article_params
-      params.require(:article).permit(:title, :body, :status, :user)
+      params.require(:article).permit(:title, :body, :status, :user, :image)
     end
 
     def article_access
