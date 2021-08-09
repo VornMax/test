@@ -21,13 +21,13 @@
     <%= form.hidden_field :image_cache %>
 
       <% if article.image? %>
-      <%= image_tag article.image.thumb.url %>
-      <div>
-        <%= label_tag :remove_image do %>
-          Remove image
-          <%= form.check_box :remove_image %>
-        <% end %>
-      </div>
+        <%= image_tag article.image.thumb.url %>
+        <div>
+          <%= label_tag :remove_image do %>
+            Remove image
+            <%= form.check_box :remove_image %>
+          <% end %>
+        </div>
       <% end %>
 
     <% article.errors.full_messages_for(:image).each do |message| %>
