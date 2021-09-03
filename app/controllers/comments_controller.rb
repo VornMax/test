@@ -6,6 +6,8 @@ class CommentsController < ApplicationController
 
   def create
     @comment = Comment.new(comment_params)
+    @comment.user = current_user
+
     if @comment.save
       redirect_to article_path(@comment.base_article)
     else
@@ -22,6 +24,6 @@ class CommentsController < ApplicationController
   private
 
   def comment_params
-    params.require(:comment).permit(:content, :commentable_type, :commentable_id)
+    params.require(:comment).permit(:content, :user, :commentable_type, :commentable_id)
   end
 end

@@ -1,12 +1,21 @@
 <li>
-  <%= comment.content %>
-  
-  <%= link_to 'Delete', comment,
-              method: :delete,
-              data: { confirm: "Are you sure?" } %>
+  <p>
+    <strong>Author:</strong>
+    <%= comment.user.email %>
+  </p>
+  <p>
+    <strong>Comment:</strong>
+    <%= comment.content %>
+  </p>
+  <% if current_user.admin? || current_user.moderator? %>
+    <%= link_to 'Delete', comment,
+                method: :delete,
+                data: { confirm: "Are you sure?" } %>
+  <% end %>
   <button class="btn" type="button" data-comment-id="<%= comment.id %>">
     Reply
-  </button>
+  </button></br>
+  
 
   <ul>
   <div class="content hidden" id="comment-<%= comment.id %>">

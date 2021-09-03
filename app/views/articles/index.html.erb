@@ -21,7 +21,7 @@
   <% end %></div>
 <% end %>
 
-<% if current_user.member? || current_user.admin? %>
+<% if policy(:article).new? %>
   <%= link_to "New Article", new_article_path %>
 <% end %>
 
