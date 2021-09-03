@@ -27,3 +27,14 @@ last updated: <%= time_ago_in_words(@article.updated_at) %> ago</small><br><br>
   <% end %>
   <li><%= link_to "Back", root_path %></li>
 </ul>
+
+<h2>Comments:</h2>
+<ul>
+  <%= render @article.comments %>
+</ul>
+
+<h2>Add a comment:</h2>
+
+<%= render partial: 'comments/form', :locals => { commentable_type: 'Article', commentable_id: @article.id } %>
+
+

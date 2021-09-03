@@ -1,0 +1,17 @@
+<li>
+  <%= comment.content %>
+  
+  <%= link_to 'Delete', comment,
+              method: :delete,
+              data: { confirm: "Are you sure?" } %>
+  <button class="btn" type="button" data-comment-id="<%= comment.id %>">
+    Reply
+  </button>
+
+  <ul>
+  <div class="content hidden" id="comment-<%= comment.id %>">
+    <%= render partial: 'comments/form', :locals => { commentable_type: 'Comment', commentable_id: comment.id } %>
+  </div>
+    <%= render(comment.comments) if comment.comments.present? %>
+  </ul>
+</li></br>
