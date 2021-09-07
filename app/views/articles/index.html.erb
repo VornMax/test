@@ -30,7 +30,7 @@
     <li>
     <%= link_to article.title, article %>
 
-    <% if current_user.admin? && article.draft? || current_user.moderator? && article.draft? || current_user.member? && article.draft? %>
+    <% if policy(article).show_draft? %>
       <font color="red"><%= article.status %></font><br>
     <% end %>
     </li>

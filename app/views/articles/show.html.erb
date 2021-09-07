@@ -20,7 +20,7 @@ last updated: <%= time_ago_in_words(@article.updated_at) %> ago</small><br><br>
 </div>
 
 <ul>
-  <% if current_user.member? && @article.draft? || current_user.admin? %>
+  <% if policy(@article).edit? %>
     <li><%= link_to "Edit", edit_article_path(@article) %></li>
     <li><%= link_to "Destroy", article_path(@article),
                   method: :delete,
