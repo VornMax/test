@@ -1,5 +1,9 @@
 <h1><%= @article.title %></h1>
 
+<small>Created by: <%= @article.user.email %>,
+<%= time_ago_in_words(@article.created_at) %> ago,
+last updated: <%= time_ago_in_words(@article.updated_at) %> ago</small><br><br>
+
 <% if @article.draft? %>
   <font color="red"><%= @article.status %></font><br>
 <% end %>
@@ -8,9 +12,6 @@
 
 <p><%= @article.body %></p><br>
 
-<small>Created by: <%= @article.user.email %>,
-<%= time_ago_in_words(@article.created_at) %> ago,
-last updated: <%= time_ago_in_words(@article.updated_at) %> ago</small><br><br>
 
 <div style="text-align: center;">
   <% if current_user.moderator? && @article.draft? || current_user.admin? && @article.draft? %>
@@ -19,7 +20,7 @@ last updated: <%= time_ago_in_words(@article.updated_at) %> ago</small><br><br>
 </div>
 
 <ul>
-  <% if current_user.member? && @article.draft? || current_user.admin? %>
+  <% if policy(@article).edit? %>
     <li><%= link_to "Edit", edit_article_path(@article) %></li>
     <li><%= link_to "Destroy", article_path(@article),
                   method: :delete,
@@ -28,7 +29,9 @@ last updated: <%= time_ago_in_words(@article.updated_at) %> ago</small><br><br>
   <li><%= link_to "Back", root_path %></li>
 </ul>
 
+<% if @article.comments.present? %>
 <h2>Comments:</h2>
+<% end %>
 <ul>
   <%= render @article.comments %>
 </ul>

@@ -33,7 +33,7 @@ class ArticlePolicy < ApplicationPolicy
   end
 
   def edit?
-    user.admin? || user.member? && record.user_id == user.id && record.status == "draft"
+    destroy?
   end
 
   def new?
@@ -42,5 +42,13 @@ class ArticlePolicy < ApplicationPolicy
 
   def show?
     user.admin? || user.moderator? || user.member? && record.status == "published" || user.member? && record.user_id == user.id && record.status == "draft"
+  end
+
+  def admin?
+    user.admin?
+  end
+
+  def show_draft?
+    user.admin? && record.status == "draft" || user.moderator? && record.status == "draft" || user.member? && record.status == "draft"
   end
 end
